@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Aisling</title>
+    <style>
+        body {
+            color:white;
+            background-color:black;
+            font-family: 'Open Sans';
+            display: flex;
+            flex-direction: row;
+        }
+        #status_bar {
+            position:absolute;
+            padding:4px;
+            bottom:0;
+            height:40px;
+            border-top: 1px solid white;
+        }
+        select {
+            color:white;
+            background-color:black;
+            border:none;
+        }
+        select:focus {
+            outline: none;
+        }
+        select option {
+            color: white;
+            background-color:black;
+            width:100px;
+        }
+        option:focus, option:checked, option:hover {
+            background-color:dimgrey;
+            outline:none;
+        }
+        select::-webkit-scrollbar-track
+        {
+            background-color: #000000;
+        }
+        
+        select::-webkit-scrollbar
+        {
+            width: 6px;
+            background-color: #000000;
+        }
+        
+        select::-webkit-scrollbar-thumb
+        {
+            background-color: #FFFFFF;
+        }
+
+    </style>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
+  </head>
+  <body>
+    <select size="3">
+        <option>a</option>
+        <option>b</option>
+        <option>c</option>
+    </select>
+    <div>
+        <h2 id="entry_word">Aisling</h2>
+        <hr/>
+        <div id="entry_definition">an Irish language feminine given name meaning "dream" or "vision"</div>
+    </div>
+    <script>
+        //let status_bar = document.querySelector('#status_bar')
+        //status_bar.innerText = 'node:  '+process.versions.node+'  chrome:'+process.versions.chrome+'  electron: '+process.versions.electron;
+    </script>
+  </body>
+</html>

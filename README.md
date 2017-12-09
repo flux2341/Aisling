@@ -10,6 +10,30 @@ Todo Features
     - entering text in the search box filters the displayed words
     - allow searching particular parts of the entry (e.g. word:this definition:that)
 - display a word detail page, allow the user to enter a word and definition
+    - view mode
+    - edit mode
+        - change word, definition
+        - 
+        - move modules up/down
 - on startup, restore the state that the program was in before it was closed
 - add tags, allow writing tag:colors in the search input
+- have links to open wiktionary.org, etymonline.com, etc
+    - invoke their api or embed an iframe to make it more integrated
+- modular system
+    - word, definition, tags
+    - online resources (cache, regularly try to update it)
+        - wiktionary, etymonline, dictionary.com, thesaurus.com, websters
+    - each module would need its own view / edit mode
+        - embed the html inside the 
+    - each module would need to give the entry an attribute to be saved with
+    - ability to change order (edit mode)
+    - maybe keep it simple - all entries have the same arrangement
+        - the gui wouldn't change between entries
+    - store additional data as part of the entry in the database
+    - maybe the ability to have per-entry arrangements and a global default
+    - maybe link the arrangement with the data, just interpret the entry as-is
 
+
+## Credits
+
+[Caret Icon](https://thenounproject.com/term/text-cursor/26475/) by [Darren Higgins](https://thenounproject.com/darrin.higgins/) under [Creative Commons License v3](https://creativecommons.org/licenses/by/3.0/)

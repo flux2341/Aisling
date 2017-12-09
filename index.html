@@ -26,13 +26,18 @@
         select:focus {
             outline: none;
         }
+        select:focus option:checked {
+            background: darkgoldenrod linear-gradient(0deg, darkgoldenrod 0%, darkgoldenrod 100%);
+            color:black;
+        }
         select option {
             color: white;
             background-color:black;
             width:100px;
         }
         option:focus, option:checked, option:hover {
-            background-color:dimgrey;
+            background-color:#000000;
+            color:goldenrod;
             outline:none;
         }
         select::-webkit-scrollbar-track
@@ -51,23 +56,84 @@
             background-color: #FFFFFF;
         }
 
+
+        #bt_edit {
+            width: 20px;
+            height: 20px;
+            stroke: #333333;
+            stroke-width: 4px;
+            position:absolute;
+            left:100%;
+            top:10px;
+            transform: translateX(-30px);
+        }
+        #bt_edit:hover {
+            stroke:goldenrod;
+        }
+
     </style>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
   </head>
   <body>
-    <select size="3">
+    
+    <select size="2">
         <option>a</option>
         <option>b</option>
         <option>c</option>
     </select>
-    <div>
-        <h2 id="entry_word">Aisling</h2>
-        <hr/>
-        <div id="entry_definition">an Irish language feminine given name meaning "dream" or "vision"</div>
+    <div id="div_detail">
+        <div id="bt_edit">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 100 125" enable-background="new 0 0 100 100" xml:space="preserve"><path d="M51,12.143c0-5.286,0-8.198,9.991-8.198H66v-2h-5.009c-6.753,0-9.702,1.499-10.991,3.786  c-1.289-2.287-4.238-3.786-10.991-3.786H34v2h5.009C49,3.944,49,6.856,49,12.143v21.802v15h-5.626v2H49v15v20.939  c0,5.26,0,9.061-9.991,9.061H34v2h5.009c6.753,0,9.703-1.783,10.991-4.312c1.289,2.529,4.238,4.312,10.991,4.312H66v-2h-5.009  C51,95.944,51,92.144,51,86.884V65.944v-15h5.625v-2H51v-15V12.143z"/></svg>
+        </div>
     </div>
     <script>
         //let status_bar = document.querySelector('#status_bar')
         //status_bar.innerText = 'node:  '+process.versions.node+'  chrome:'+process.versions.chrome+'  electron: '+process.versions.electron;
+
+        // asynchronous searching
+        // select a term
+        // save whenever a field is edited
+        // extensible, modular
+
+        // extensible design
+
+        // modules
+        // default
+        // mass update - select multiple
+
+        // default
+        // do mass edits - select multiple entries
+
+    </script>
+
+    <script src="modules.js"></script>
+    <script>
+        let entry = {
+            word: 'Aisling',
+            definition: 'an Irish language feminine given name meaning "dream" or "vision"'
+        }
+        let div_detail = document.querySelector('#div_detail');
+
+        let module_names = ['word', 'definition'];
+        let modules = []
+        for (let i=0; i<module_names.length; ++i) {
+            let container = document.createElement('div');
+            let module = null;
+            if (module_names[i] === 'word') {
+                module = new ModuleWord(container);
+            } else if (module_names[i] === 'definition') {
+                module = new ModuleDefinition(container);
+            } else {
+                console.error('unrecognized module "'+module_names[i]+'"');
+                continue;
+            }
+            module.switch_to_view_mode(entry);
+            modules.push(module);
+            div_detail.appendChild(container);
+        }
+
+        
+
     </script>
   </body>
 </html>

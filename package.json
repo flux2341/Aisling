@@ -19,5 +19,8 @@
   "homepage": "https://github.com/flux2341/Aisling#readme",
   "devDependencies": {
     "electron": "~1.7.8"
+  },
+  "dependencies": {
+    "pouchdb": "^6.3.4"
   }
 }

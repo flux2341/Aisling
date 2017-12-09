@@ -31,9 +31,6 @@ Todo Features
         - the gui wouldn't change between entries
     - store additional data as part of the entry in the database
     - maybe the ability to have per-entry arrangements and a global default
+        - allow selecting multiple entries for doing mass edits
     - maybe link the arrangement with the data, just interpret the entry as-is
-
-
-## Credits
-
-[Caret Icon](https://thenounproject.com/term/text-cursor/26475/) by [Darren Higgins](https://thenounproject.com/darrin.higgins/) under [Creative Commons License v3](https://creativecommons.org/licenses/by/3.0/)
+- asynchronous searching

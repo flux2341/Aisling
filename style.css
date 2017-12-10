@@ -1,20 +1,18 @@
+
+html, body {
+    height:100%;
+    margin:0;
+    padding:0;
+}
+
 body {
     color:white;
     background-color:black;
     font-family: 'Open Sans';
     display: flex;
     flex-direction: row;
-    margin:0;
+    height:100%;
 }
-#status_bar {
-    position:absolute;
-    padding:4px;
-    bottom:0;
-    height:40px;
-    border-top: 1px solid white;
-}
-
-
 
 #div_entries {
     overflow-y: auto;
@@ -24,7 +22,7 @@ body {
 
 #ul_entries {
     list-style: none;
-    padding:2px;
+    padding:8px;
     margin:0px;
     cursor:default;
     color: grey;
@@ -46,25 +44,25 @@ body {
     color:white;
 }
 
-#div_entries::-webkit-scrollbar-track {
+.scrollable::-webkit-scrollbar-track {
     background-color: #000000;
 }
 
-#div_entries::-webkit-scrollbar {
+.scrollable::-webkit-scrollbar {
     width: 6px;
     background-color: #000000;
 }
 
-#div_entries::-webkit-scrollbar-thumb {
+.scrollable::-webkit-scrollbar-thumb {
     background-color: #333;
 }
 
 .top_bts {
     color: #333;
     position:absolute;
-    width: 90px;
+    width: 100px;
     left:100%;
-    top:10px;
+    top:0px;
     transform: translateX(-120%);
     cursor:default;
     padding:4px;
@@ -79,9 +77,68 @@ body {
 }
 
 #div_detail > div {
-    margin: 12px;
+    margin: 12px 0;
+}
+#div_detail {
+    padding: 0 20px 0 0;
 }
 
 h2 {
+    font-size:30px;
     margin:0px;
+}
+
+
+input {
+    color:white;
+    background-color:black;
+    border:0.5px solid #333;
+    font-family: 'Open Sans';
+    font-size:30px;
+    width:98%;
+    padding:1%;
+}
+
+input:focus {
+    outline:none;
+    
+}
+
+textarea {
+    color:white;
+    background-color:black;
+    border:0.5px solid #333;
+    width:98%;
+    padding:1%;
+    height:100%;
+    font-family: 'Open Sans';
+    font-size:16px;
+}
+textarea:focus {
+    outline:none;
+}
+
+
+
+.gutter {
+    cursor: col-resize;
+}
+
+
+.gutter:after{
+    content: "";
+    display: block;
+    width: 1px;
+    height: 100%;
+    background-color: dimgrey;
+    position: relative;
+    left: 50%;
+    z-index:2;
+}
+
+
+.split {
+    box-sizing: border-box;
+    overflow-y: auto;
+    overflow-x: hidden;
 }

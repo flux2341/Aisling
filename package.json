@@ -19,6 +19,7 @@
   "homepage": "https://github.com/flux2341/Aisling#readme",
   "dependencies": {
     "electron": "^1.7.9",
-    "electron-json-storage": "^4.0.2"
+    "electron-json-storage": "^4.0.2",
+    "split.js": "^1.3.5"
   }
 }

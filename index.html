@@ -10,11 +10,11 @@
   </head>
   <body>
     
-    <div id="div_entries">
+    <div id="div_entries" class="split scrollable">
         <ul id="ul_entries">
         </ul>
     </div>
-    <div id="div_detail">
+    <div id="div_detail" class="split">
         <div id="div_view_bts" class="top_bts">
             <div id="bt_new">new</div>
             <div id="bt_edit">edit</div>
@@ -27,29 +27,55 @@
 
     
     <script>
-        let db_path = 'C:\\Users\\flux\\data\\aisling';
+
         const storage = require('electron-json-storage');
-        storage.setDataPath(db_path);
 
-        function load_default_db() {
-            var default_db = require('./default_db.json');
-            for (let i=0; i<default_db.entries.length; ++i) {
-                var entry = default_db.entries[i];
-                storage.set(entry.word, entry, function(error) {
-                    if (error) console.log(error);
-                });
-            }
-        }
-
-        //load_default_db();
-
-
+        let ul_entries = document.querySelector('#ul_entries');
         let div_detail = document.querySelector('#div_detail');
+
+        let div_view_bts = document.querySelector('#div_view_bts');
+        let div_edit_bts = document.querySelector('#div_edit_bts');
 
         let module_names = ['word', 'definition'];
         let modules = []
+
+
+        var Split = require('split.js');
+        Split(['#div_entries', '#div_detail'], {
+            sizes: [20, 80],
+            gutterSize: 20,
+            minSize: [5, 5],
+            direction: 'horizontal',
+            cursor: 'col-resize',
+            snapOffset: 0
+        });
+        
+        // if path is null, just re-use the existing path
+        function load_from_storage(path) {
+            if (path !== null) {
+                storage.setDataPath(path);
+            }
+            storage.keys(function(error, keys) {
+                if (error) {
+                    console.log(error);
+                } else {
+                    // clear existing li's
+                    while (ul_entries.hasChildNodes()) {
+                        ul_entries.removeChild(ul_entries.lastChild);
+                    }
+                    // add new li's from the data
+                    for (let key in keys) {
+                        add_word(keys[key]);
+                    }
+                }
+            });
+        }
+
+
+        // create detail page from modules
         for (let i=0; i<module_names.length; ++i) {
             let container = document.createElement('div');
+            container.style.width = "100%";
             let module = null;
             if (module_names[i] === 'word') {
                 module = new ModuleWord(container);
@@ -59,18 +85,31 @@
                 console.error('unrecognized module "'+module_names[i]+'"');
                 continue;
             }
-            
             modules.push(module);
             div_detail.appendChild(container);
         }
 
-        function load_entry(entry) {
+        let current_entry = null;
+        function view_entry(entry) {
+            current_entry = entry;
             for (let i=0; i<modules.length; ++i) {
                 modules[i].switch_to_view_mode(entry);
             }
+            div_view_bts.style.display = 'block';
+            div_edit_bts.style.display = 'none';
         }
 
-        let ul_entries = document.querySelector('#ul_entries');
+        function edit_entry(entry) {
+            current_entry = entry;
+            for (let i=0; i<modules.length; ++i) {
+                modules[i].switch_to_edit_mode(current_entry);
+            }
+            div_view_bts.style.display = 'none';
+            div_edit_bts.style.display = 'block';
+        }
+        
+
+        // add an word to the list of words
         function add_word(word) {
             let li = document.createElement('li');
             li.innerText = word;
@@ -92,7 +131,7 @@
                     if (error) {
                         console.log(error)
                     } else {
-                        load_entry(entry);
+                        view_entry(entry);
                     }
                 });
             }
@@ -100,15 +139,7 @@
         }
 
 
-        storage.getAll(function(error, data) {
-            if (error) {
-                console.log(error);
-            } else {
-                for (attribute in data) {
-                    add_word(data[attribute].word);
-                }
-            }
-        });
+        
 
 
 
@@ -119,8 +150,91 @@
 
 
         bt_new.onclick = function() {
+            for (let i=0; i<ul_entries.children.length; ++i) {
+                let c = ul_entries.children[i];
+                if (c.hasAttribute('selected')) {
+                    c.style.color = null;
+                    c.removeAttribute('selected');
+                }
+            }
+            edit_entry(null);
+        }
+
+        bt_edit.onclick = function() {
+            edit_entry(current_entry);
+        }
+
+        bt_save.onclick = function() {
+            
+            let old_word = null;
+            if (current_entry !== null) {
+                old_word = current_entry.word;
+            }
+            let temp_entry = {};
+            for (let i=0; i<modules.length; ++i) {
+                modules[i].save(temp_entry); // copy data from input fields into the new or existing entry
+            }
+
+            // check if the input word is blank
+            if (temp_entry.name === '') {
+                alert('the entry\'s word cannot be blank');
+                return;
+            }
+
+            //  check if the input word already exists
+            if (old_word !== temp_entry.word) {
+                for (let i=0; i<ul_entries.children.length; ++i) {
+                    let word = ul_entries.children[i].innerText;
+                    if (word === temp_entry.word) {
+                        alert('the entry\'s word must be unique');
+                        return;
+                    }
+                }
+            }
+
+            // save the new word
+            current_entry = temp_entry;
+            storage.set(current_entry.word, current_entry, function(error) {
+                if (error) {
+                    console.log(error);
+                }
+                // if we made a new word or changed the existing one
+                if (old_word !== current_entry.word) {
+                    if (old_word !== null) {
+
+                        // if the name's been updated, remove the old one
+                        storage.remove(old_word, function(error) {
+                            if (error) {
+                                console.log(error);
+                            }
+                            load_from_storage(null); // inefficient, but I don't want to bother sorting
+                            view_entry(current_entry);
+                        });
+                    } else {
+                        load_from_storage(null); // inefficient, but I don't want to bother sorting
+                        view_entry(current_entry);
+                    }
+                    
+                } else {
+                    view_entry(current_entry);
+                }
+            });
+            
 
         }
+
+        bt_cancel.onclick = function() {
+            view_entry(current_entry);
+        }
+
+
+        
+        let db_path = 'C:\\Users\\flux\\data\\aisling';
+        load_from_storage(db_path);
+        view_entry(null);
+
+        // store settings somewhere else
+        // settings - db location, search text, last word
 
         
 

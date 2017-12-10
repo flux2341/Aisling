@@ -6,6 +6,8 @@
     
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="./node_modules/pouchdb/dist/pouchdb.js"></script>
+    <script src="modules.js"></script>
   </head>
   <body>
     
@@ -24,12 +26,36 @@
         </div>
     </div>
 
-    <script src="modules.js"></script>
+    
     <script>
-        let entry = {
-            word: 'Aisling',
-            definition: 'an Irish language feminine given name meaning "dream" or "vision"'
+        PouchDB.plugin(require('pouchdb-adapter-leveldb'));
+        let db_path = 'C:\\Users\\flux\\data\\aisling.db';
+        //let db_path = './aisling.db';
+        let db = new PouchDB(db_path, {adapter: 'leveldb'});
+        //let db = new PouchDB(db_path, {adapter: 'websql'});
+        
+        console.log(db.adapter);
+
+        db.info().then(function (info) {
+            console.log(info);
+        });
+
+        function load_default_db() {
+            var default_db = require('./default_db.json');
+            for (let i=0; i<default_db.entries.length; ++i) {
+                var entry = default_db.entries[i];
+                db.put(entry)
+                .then(function (response) {
+                    console.log('entry saved');
+                }).catch(function (err) {
+                    console.log(err);
+                });
+            }
         }
+
+        //load_default_db();
+
+
         let div_detail = document.querySelector('#div_detail');
 
         let module_names = ['word', 'definition'];
@@ -45,10 +71,22 @@
                 console.error('unrecognized module "'+module_names[i]+'"');
                 continue;
             }
-            module.switch_to_view_mode(entry);
+            
             modules.push(module);
             div_detail.appendChild(container);
         }
+
+        function load_entry(entry) {
+            for (let i=0; i<modules.length; ++i) {
+                modules[i].switch_to_view_mode(entry);
+            }
+        }
+
+        db.get("aisling").then(function(entry) {
+            load_entry(entry);
+        }).catch(function (err) {
+            console.log(err);
+        });
 
         let ul_entries = document.querySelector('#ul_entries');
         function add_word(word) {
@@ -87,5 +125,6 @@
         
 
     </script>
+
   </body>
 </html>

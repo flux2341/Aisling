@@ -51,7 +51,7 @@
         });
         
         // if path is null, just re-use the existing path
-        function load_from_storage(path) {
+        function load_from_storage(path, word) {
             if (path !== null) {
                 storage.setDataPath(path);
             }
@@ -67,6 +67,9 @@
                     for (let key in keys) {
                         add_word(keys[key]);
                     }
+                }
+                if (word) {
+                    pick_word(word);
                 }
             });
         }
@@ -107,6 +110,32 @@
             div_view_bts.style.display = 'none';
             div_edit_bts.style.display = 'block';
         }
+
+        function pick_word(word) {
+
+            
+
+            //  update the list of entries
+            for (let i=0; i<ul_entries.children.length; ++i) {
+                let c = ul_entries.children[i];
+                if (c.innerText === word) {
+                    c.style.color = 'white';
+                    c.setAttribute('selected', 'selected');
+                } else if (c.hasAttribute('selected')) {
+                    c.style.color = null;
+                    c.removeAttribute('selected');
+                }
+            }
+            
+            // get the word from storage
+            storage.get(word, function(error, entry) {
+                if (error) {
+                    console.log(error)
+                } else {
+                    view_entry(entry);
+                }
+            });
+        }
         
 
         // add an word to the list of words
@@ -114,26 +143,7 @@
             let li = document.createElement('li');
             li.innerText = word;
             li.onclick = function() {
-
-                //  update the list of entries
-                for (let i=0; i<ul_entries.children.length; ++i) {
-                    let c = ul_entries.children[i];
-                    if (c.hasAttribute('selected')) {
-                        c.style.color = null;
-                        c.removeAttribute('selected');
-                    }
-                }
-                this.style.color = 'white';
-                this.setAttribute('selected', 'selected');
-                
-                // get the word from storage
-                storage.get(word, function(error, entry) {
-                    if (error) {
-                        console.log(error)
-                    } else {
-                        view_entry(entry);
-                    }
-                });
+                pick_word(word);
             }
             ul_entries.appendChild(li);
         }
@@ -207,16 +217,14 @@
                             if (error) {
                                 console.log(error);
                             }
-                            load_from_storage(null); // inefficient, but I don't want to bother sorting
-                            view_entry(current_entry);
+                            load_from_storage(null, current_entry.word); // inefficient, but I don't want to bother sorting
                         });
                     } else {
-                        load_from_storage(null); // inefficient, but I don't want to bother sorting
-                        view_entry(current_entry);
+                        load_from_storage(null, current_entry.word); // inefficient, but I don't want to bother sorting
                     }
                     
                 } else {
-                    view_entry(current_entry);
+                    pick_word(current_entry.word);
                 }
             });
             

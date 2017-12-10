@@ -1,22 +1,17 @@
 {
     "entries":[{
-        "_id": "aisling",
         "word":"Aisling",
         "definition":"an Irish language feminine given name meaning \"dream\" or \"vision\""
     },{
-        "_id": "a",
         "word":"a",
         "definition":"defa"
     },{
-        "_id": "b",
         "word":"b",
         "definition":"defb"
     },{
-        "_id": "c",
         "word":"c",
         "definition":"defc"
     },{
-        "_id": "d",
         "word":"d",
         "definition":"defd"
     }]

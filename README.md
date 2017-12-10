@@ -1,36 +1,35 @@
 # Aisling
-a personal vocabulary manager made with Electron
+Aisling is a personal vocabulary manager made with [Electron](https://electronjs.org/), [electron-json-storage](https://github.com/electron-userland/electron-json-storage) and [Split.js](https://nathancahill.github.io/Split.js/).
 
-Current Features
-- hello world :)
+## Current Features
 
-Todo Features
-- store a list of words definitions tags in a local database
-- display that list on the left, with a text box at the top for searching
+- view list of entries, view entry detail
+- create entry, edit entry, delete entry
+- entries are stored as json files
+
+## Todo
+- add "are you sure?" to delete button, make 'word cannot be blank' and 'word must be unique' prettier
+- settings
+    - storage location
+    - arrangement of modules, module data
+    - last entry open
+- prompt for location for storage, save in settings
+    - on startup, restore the state that the program was in before it was closed
+- add search box on top of word list
     - entering text in the search box filters the displayed words
     - allow searching particular parts of the entry (e.g. word:this definition:that)
-- display a word detail page, allow the user to enter a word and definition
-    - view mode
-    - edit mode
-        - change word, definition
-        - 
-        - move modules up/down
-- on startup, restore the state that the program was in before it was closed
 - add tags, allow writing tag:colors in the search input
-- have links to open wiktionary.org, etymonline.com, etc
-    - invoke their api or embed an iframe to make it more integrated
+- have items to open wiktionary.org, etymonline.com, etc
+    - invoke their api to make it more integrated
 - modular system
     - word, definition, tags
-    - online resources (cache, regularly try to update it)
-        - wiktionary, etymonline, dictionary.com, thesaurus.com, websters
-    - each module would need its own view / edit mode
-        - embed the html inside the 
-    - each module would need to give the entry an attribute to be saved with
-    - ability to change order (edit mode)
-    - maybe keep it simple - all entries have the same arrangement
-        - the gui wouldn't change between entries
-    - store additional data as part of the entry in the database
+    - buttons for searching certain sites
+        - in edit mode, allow adding, moving, removing buttons
+    - online resources
+        - invoke api - wiktionary, etymonline, dictionary.com, thesaurus.com, websters
+        - cache result, add refresh button
+    - in edit mode - move modules up/down, add a new module, remove a module
     - maybe the ability to have per-entry arrangements and a global default
         - allow selecting multiple entries for doing mass edits
-    - maybe link the arrangement with the data, just interpret the entry as-is
+        - link the arrangement with the data, just interpret the entry as-is
 - asynchronous searching

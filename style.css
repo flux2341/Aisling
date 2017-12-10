@@ -60,12 +60,19 @@ body {
 .top_bts {
     color: #333;
     position:absolute;
-    width: 100px;
     left:100%;
     top:0px;
     transform: translateX(-120%);
     cursor:default;
     padding:4px;
+}
+
+#div_view_bts {
+    width: 100px;
+}
+
+#div_edit_bts {
+    width:160px;
 }
 
 .top_bts > div {

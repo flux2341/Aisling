@@ -20,6 +20,7 @@
             <div id="bt_edit">edit</div>
         </div>
         <div id="div_edit_bts" class="top_bts" style="display:none">
+            <div id="bt_delete">delete</div>
             <div id="bt_save">save</div>
             <div id="bt_cancel">cancel</div>
         </div>
@@ -70,6 +71,8 @@
                 }
                 if (word) {
                     pick_word(word);
+                } else {
+                    view_entry(null);
                 }
             });
         }
@@ -155,6 +158,7 @@
 
         let bt_new = document.querySelector('#bt_new');
         let bt_edit = document.querySelector('#bt_edit');
+        let bt_delete = document.querySelector('#bt_delete');
         let bt_save = document.querySelector('#bt_save');
         let bt_cancel = document.querySelector('#bt_cancel');
 
@@ -186,7 +190,7 @@
             }
 
             // check if the input word is blank
-            if (temp_entry.name === '') {
+            if (temp_entry.word === '') {
                 alert('the entry\'s word cannot be blank');
                 return;
             }
@@ -233,6 +237,19 @@
 
         bt_cancel.onclick = function() {
             view_entry(current_entry);
+        }
+
+        bt_delete.onclick = function() {
+            if (current_entry) {
+                storage.remove(current_entry.word, function(error) {
+                    if (error) {
+                        console.log(error);
+                    }
+                    load_from_storage(null); // inefficient, but I don't want to bother sorting
+                });
+            } else {
+                view_entry(null);
+            }
         }
 
 

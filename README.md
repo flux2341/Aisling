@@ -7,6 +7,8 @@ Aisling is a personal vocabulary manager made with [Electron](https://electronjs
 - create entry, edit entry, delete entry
 - entries are stored as json files
 
+
+
 ## Todo
 - add "are you sure?" to delete button, make 'word cannot be blank' and 'word must be unique' prettier
 - settings

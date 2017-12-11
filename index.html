@@ -9,6 +9,16 @@
     <script src="modules.js"></script>
   </head>
   <body>
+
+    <div id="div_alert_background" style="display:none">
+        <div id="div_alert_box">
+            <span id="div_alert_text"></span>
+            <div id="div_alert_buttons">
+                <div id="div_alert_bt_ok">ok</div>
+                <div id="div_alert_bt_cancel">cancel</div>
+            </div>
+        </div>
+    </div>
     
     <div id="div_entries" class="split scrollable">
         <ul id="ul_entries">
@@ -28,6 +38,7 @@
 
     
     <script>
+        
 
         const storage = require('electron-json-storage');
 
@@ -64,6 +75,7 @@
                     while (ul_entries.hasChildNodes()) {
                         ul_entries.removeChild(ul_entries.lastChild);
                     }
+
                     // add new li's from the data
                     for (let key in keys) {
                         add_word(keys[key]);
@@ -191,7 +203,11 @@
 
             // check if the input word is blank
             if (temp_entry.word === '') {
-                alert('the entry\'s word cannot be blank');
+                show_alert({
+                    message: 'the word cannot be blank',
+                    buttons: ['ok', 'cancel'],
+                    callback: function(response) {}
+                });
                 return;
             }
 
@@ -261,7 +277,29 @@
         // store settings somewhere else
         // settings - db location, search text, last word
 
-        
+        let div_alert_background = document.querySelector('#div_alert_background');
+        let div_alert_text = document.querySelector('#div_alert_text');
+
+        function show_alert(obj) {
+            div_alert_text.innerText = obj.message;
+            let buttons = {
+                ok: document.querySelector('#div_alert_bt_ok'),
+                cancel: document.querySelector('#div_alert_bt_cancel')
+            }
+            for (button_name in buttons) {
+                if (obj.buttons.indexOf(button_name) >= 0) {
+                    buttons[button_name].style.display = 'inline-block';
+                    buttons[button_name].button_name = button_name;
+                    buttons[button_name].onclick = function() {
+                        div_alert_background.style.display = 'none';
+                        obj.callback(this.button_name);
+                    }
+                } else {
+                    buttons[button_name].style.display = 'none';
+                }
+            }
+            div_alert_background.style.display = 'block';
+        }
 
     </script>
 

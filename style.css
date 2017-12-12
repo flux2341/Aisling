@@ -78,6 +78,7 @@ body {
 .top_bts > div {
     margin:4px;
     display:inline;
+    background-color:black;
 }
 .top_bts > div:hover {
     color:goldenrod;

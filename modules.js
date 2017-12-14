@@ -3,6 +3,7 @@ class ModuleWord {
     constructor(container) {
         this.show_word = document.createElement('h2');
         this.input_word = document.createElement('input');
+        this.input_word.id = 'input_word';
         container.appendChild(this.show_word);
         container.appendChild(this.input_word);
     }

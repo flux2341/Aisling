@@ -8,10 +8,9 @@ Aisling is a personal vocabulary manager made with [Electron](https://electronjs
 - entries are stored as json files
 - half-decent alert/confirm dialog
 - settings for 'storage location' and 'last entry open', file dialog for opening storage location
+- loads previous state on startup
 
 ## Todo
-- prompt for location for storage, save in settings
-    - on startup, restore the state that the program was in before it was closed
 - add search box on top of word list
     - entering text in the search box filters the displayed words
     - allow searching particular parts of the entry (e.g. word:this definition:that)

@@ -19,6 +19,7 @@
         </div>
 
         <div id="div_entries" class="split scrollable">
+            <input type="text" id="input_search"/>
             <ul id="ul_entries">
             </ul>
         </div>
@@ -51,7 +52,7 @@
             let last_search_text = settings.get('last_search_text');
             let last_selected_word = settings.get('last_selected_word');
             
-
+            let input_search = document.querySelector('#input_search');
             let ul_entries = document.querySelector('#ul_entries');
             let div_detail = document.querySelector('#div_detail');
 
@@ -172,10 +173,6 @@
                 }
                 ul_entries.appendChild(li);
             }
-
-
-            
-
 
 
             let bt_new = document.querySelector('#bt_new');
@@ -318,6 +315,13 @@
                     e.removeChild(e.lastChild);
                 }
             }
+
+
+            input_search.oninput = function() {
+                
+            }
+
+
 
             load_from_storage(storage_path, last_selected_word);
 

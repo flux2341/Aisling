@@ -23,6 +23,10 @@ function createWindow () {
 
   win.webContents.openDevTools()
 
+  if (process.env.NODE_ENV !== 'production') {
+    require('vue-devtools').install()
+  }
+
   // Emitted when the window is closed.
   win.on('closed', () => {
     // Dereference the window object, usually you would store windows

@@ -155,6 +155,8 @@ var app = new Vue({
             if (cind >= 0) {
                 let name = st.substring(0, cind);
                 st = st.substring(cind+1);
+                console.log(name);
+                console.log(st);
             }
             return this.entries.filter((entry) => {
                 if (cind >= 0) {
@@ -163,9 +165,8 @@ var app = new Vue({
                     } else if (name === 'def' || name === 'definition') {
                         return entry.definition.includes(st);
                     }
-                } else {
-                    return entry.word.includes(st) || entry.definition.includes(st);
                 }
+                return entry.word.includes(st) || entry.definition.includes(st);
             });
         }
     }

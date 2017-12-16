@@ -7,21 +7,27 @@ var Split = require('split.js');
 var app = new Vue({
     el: '#app',
     data: {
-        entries: [{word:'test1', definition:'t1d'},{word:'test2',definition:'t2d'},{word:'test3',definition:'t3d'}],
+        entries: [],
         
         // a default or 'blank' entry, used:
         // - when the application starts and there isn't a last_selected_word set
         // - when a new entry is created
         // - when an entry is deleted and the detail view needs to be cleared
-        null_entry: {word:'', definition:''},
+        null_entry: {word:'', definition:'', tags:''},
 
         // the selected entry
         current_entry: null,
 
-        // the temp_entry is used for distinguishing between 
+        // the temp_entry is used for saving the original entry while editing
         temp_entry:    null,
+
+        // the mode - either 'view' or 'edit'
         mode: 'view',
-        modules: ['module-word', 'module-definition'],
+
+        // modules to be shown in the detail view
+        modules: ['module-word', 'module-definition', 'module-tags'],
+
+        // the value of the search field at the top of the entry list
         search_text: ''
     },
     components: {
@@ -37,7 +43,16 @@ var app = new Vue({
             template: String.raw`<div style="height:200px">
                                     <textarea v-if="mode === 'edit'" v-model="entry.definition" class="scrollable"></textarea>
                                     <span v-else>{{ entry.definition }}</span>
-                                 </div>`
+                                </div>`
+        },
+        'module-tags': {
+            props: ['mode', 'entry'],
+            template: String.raw`<div id="container">
+                                    <input type="text" v-if="mode === 'edit'" v-model="entry.tags"/>
+                                    <div v-for="tag in entry.tags.split(',')" v-if="mode === 'view'">
+                                        {{tag}}
+                                    </div>
+                                </div>`
         }
     },
     methods: {
@@ -65,12 +80,6 @@ var app = new Vue({
                     }  else {
                         app.current_entry = app.copy_entry(app.null_entry);
                     }
-
-                    // the watch is only executed after the page loads
-                    // so we have to set this manually
-                    app.temp_entry = app.copy_entry(app.current_entry);
-
-                    
                 }
             });
         },
@@ -212,9 +221,11 @@ var app = new Vue({
                         return entry.word.includes(st);
                     } else if (name === 'def' || name === 'definition') {
                         return entry.definition.includes(st);
+                    } else if (name === 'tag') {
+                        return entry.tags.includes(st);
                     }
                 }
-                return entry.word.includes(st) || entry.definition.includes(st);
+                return entry.word.includes(st) || entry.definition.includes(st) || entry.tags.includes(st);
             });
             return filtered_entries;
         }
@@ -269,9 +280,8 @@ function show_alert(obj) {
 }
 
 window.onbeforeunload = function (e) {
-    if (app.current_entry.word !== '') {
-        settings.set('last_selected_word', app.current_entry.word);
-    }
+    settings.set('last_selected_word', app.current_entry.word);
+    settings.set('last_search_text', app.search_text);
 }
 
 

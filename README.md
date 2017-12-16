@@ -9,8 +9,25 @@ Aisling is a personal vocabulary manager made with [Electron](https://electronjs
 - half-decent alert/confirm dialog
 - settings for 'storage location' and 'last entry open', file dialog for opening storage location
 - loads previous state on startup
+- search entries
+    - prefix with 'word:', 'definition:', or 'tag:' to search parts
 
 ## Todo
+
+- a way for modules to add data to an entry
+    - load all modules, only show some
+    - otherwise I have to change the null entry definition in code each time I add a module
+    - need to add the field to new modules
+    - don't bother removing attributes when a module is removed from the view
+    - put a javascript function in each of the modules, put each of the modules in its own .vue file
+
+- module manipulating
+    - add module button
+    - on each module - up/down, remove, change type
+    - save / cancel changes
+    - update the main page automatically as a preview
+    - plugin interface, load modules from an external source
+- settings page
 - add search box on top of word list
     - entering text in the search box filters the displayed words
     - allow searching particular parts of the entry (e.g. word:this definition:that)

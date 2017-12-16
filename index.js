@@ -54,6 +54,23 @@ var app = new Vue({
                     for (name in entries) {
                         app.entries.push(entries[name]);
                     }
+                    
+                    // load the last selected word
+                    let last_selected_word  = settings.get('last_selected_word', null);
+                    let found_entry = app.entries.find((entry) => {
+                        return entry.word === last_selected_word;
+                    });
+                    if (found_entry) {
+                        app.current_entry = found_entry;
+                    }  else {
+                        app.current_entry = app.copy_entry(app.null_entry);
+                    }
+
+                    // the watch is only executed after the page loads
+                    // so we have to set this manually
+                    app.temp_entry = app.copy_entry(app.current_entry);
+
+                    
                 }
             });
         },
@@ -214,30 +231,14 @@ var app = new Vue({
             let result = dialog.showOpenDialog({properties: ['openDirectory']});
             settings.set('storage_path', result[0]);
         }
+        this.current_entry = this.copy_entry(this.null_entry);
+        this.temp_entry = this.copy_entry(this.null_entry);
         this.load_from_storage();
 
-        let last_selected_word  = settings.get('last_selected_word', null);
-        this.current_entry = this.entries.find((entry) => {
-            return entry.word === last_selected_word;
-        });
-        if (!this.current_entry) {
-            this.current_entry = this.copy_entry(this.null_entry);
-        }
-        // the watch is only executed after the page loads
-        // so we have to set this manually
-        this.temp_entry = this.copy_entry(this.current_entry);
+
 
         this.search_text = settings.get('last_search_text', '');
-
         
-        // Split(['#div_entries', '#div_detail'], {
-        //     sizes: [20, 80],
-        //     gutterSize: 20,
-        //     minSize: [5, 5],
-        //     direction: 'horizontal',
-        //     cursor: 'col-resize',
-        //     snapOffset: 0
-        // });
 
     }
 });
@@ -268,7 +269,7 @@ function show_alert(obj) {
 }
 
 window.onbeforeunload = function (e) {
-    if (current_entry) {
+    if (app.current_entry.word !== '') {
         settings.set('last_selected_word', app.current_entry.word);
     }
 }

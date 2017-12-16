@@ -25,14 +25,14 @@
                 </ul>
             </div>
             <div id="div_detail" class="split">
-                <div id="div_view_bts" class="top_bts">
+                <div id="div_view_bts" class="top_bts" v-if="mode === 'view'">
                     <div id="bt_new" v-on:click="new_entry()">new</div>
-                    <div id="bt_edit" v-on:click="edit_entry()">edit</div>
+                    <div id="bt_edit" v-on:click="edit_entry()" v-if="current_entry.word != ''">edit</div>
                 </div>
-                <div id="div_edit_bts" class="top_bts" style="display:none">
-                    <div id="bt_delete">delete</div>
+                <div id="div_edit_bts" class="top_bts" v-if="mode === 'edit'">
+                    <div id="bt_delete" v-on:click="delete_entry()" v-if="current_entry.word != ''">delete</div>
                     <div id="bt_save" v-on:click="save_entry()">save</div>
-                    <div id="bt_cancel" v-on:click="mode='view'">cancel</div>
+                    <div id="bt_cancel" v-on:click="cancel_edit()">cancel</div>
                 </div>
                 <div v-for="module in modules" :is="module" :entry="temp_entry" :mode="mode"></div>
             </div>

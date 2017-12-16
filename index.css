@@ -20,7 +20,6 @@ body {
 #div_entries {
     overflow-y: auto;
     max-height:97vh;
-    width:100px;
 }
 
 #ul_entries {
@@ -107,6 +106,10 @@ h2 {
     font-size:30px;
     width:98%;
     padding:1%;
+}
+
+#input_search {
+    margin: 2px;
 }
 input {
     color:white;

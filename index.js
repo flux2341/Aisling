@@ -2,8 +2,7 @@ const storage = require('electron-json-storage');
 const settings = require('electron-settings');
 const {dialog} = require('electron').remote;
 const Vue = require('vue/dist/vue.js');
-
-
+var Split = require('split.js');
 
 var app = new Vue({
     el: '#app',
@@ -29,7 +28,7 @@ var app = new Vue({
         'module-word': {
             props: ['mode', 'entry'],
             template: String.raw`<div>
-                                    <input v-if="mode === 'edit'" v-model="entry.word">
+                                    <input v-if="mode === 'edit'" v-model="entry.word" id="input_word">
                                     <h2 v-if="mode === 'view'">{{ entry.word }}</h2>
                                 </div>`
         },
@@ -230,15 +229,15 @@ var app = new Vue({
 
         this.search_text = settings.get('last_search_text', '');
 
-        var Split = require('split.js');
-        Split(['#div_entries', '#div_detail'], {
-            sizes: [20, 80],
-            gutterSize: 20,
-            minSize: [5, 5],
-            direction: 'horizontal',
-            cursor: 'col-resize',
-            snapOffset: 0
-        });
+        
+        // Split(['#div_entries', '#div_detail'], {
+        //     sizes: [20, 80],
+        //     gutterSize: 20,
+        //     minSize: [5, 5],
+        //     direction: 'horizontal',
+        //     cursor: 'col-resize',
+        //     snapOffset: 0
+        // });
 
     }
 });
@@ -270,6 +269,16 @@ function show_alert(obj) {
 
 window.onbeforeunload = function (e) {
     if (current_entry) {
-        settings.set('last_selected_word', current_entry.word);
+        settings.set('last_selected_word', app.current_entry.word);
     }
 }
+
+
+Split(['#div_entries', '#div_detail'], {
+    sizes: [20, 80],
+    gutterSize: 20,
+    minSize: [5, 5],
+    direction: 'horizontal',
+    cursor: 'col-resize',
+    snapOffset: 0
+});

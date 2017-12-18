@@ -34,7 +34,9 @@
                     <div id="bt_save" v-on:click="save_entry()">save</div>
                     <div id="bt_cancel" v-on:click="cancel_edit()">cancel</div>
                 </div>
-                <div v-for="module in modules" :is="module" :entry="temp_entry" :mode="mode"></div>
+                <!-- <div id="div_modules"> -->
+                    <div v-for="module in modules" :is="module" :entry="temp_entry" :mode="mode" :search_text.sync="search_text"></div>
+                <!-- </div> -->
             </div>
         </div>
         <script src="index.js"></script>

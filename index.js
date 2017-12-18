@@ -40,19 +40,24 @@ var app = new Vue({
         },
         'module-definition': {
             props: ['mode', 'entry'],
-            template: String.raw`<div style="height:200px">
+            template: String.raw`<div>
                                     <textarea v-if="mode === 'edit'" v-model="entry.definition" class="scrollable"></textarea>
                                     <span v-else>{{ entry.definition }}</span>
                                 </div>`
         },
         'module-tags': {
-            props: ['mode', 'entry'],
-            template: String.raw`<div id="container">
+            props: ['mode', 'entry', 'search_text'],
+            template: String.raw`<div id="div_tags">
                                     <input type="text" v-if="mode === 'edit'" v-model="entry.tags"/>
-                                    <div v-for="tag in entry.tags.split(',')" v-if="mode === 'view'">
+                                    <div class="bt_tag" v-for="tag in entry.tags.split(',')" v-if="mode === 'view'" v-on:click="select_tag(tag)">
                                         {{tag}}
                                     </div>
-                                </div>`
+                                </div>`,
+            methods: {
+                select_tag(tag_name) {
+                    this.$emit('update:search_text', 'tag:'+tag_name);
+                }
+            }
         }
     },
     methods: {
@@ -228,6 +233,9 @@ var app = new Vue({
                 return entry.word.includes(st) || entry.definition.includes(st) || entry.tags.includes(st);
             });
             return filtered_entries;
+        },
+        select_tag: function(tag_name) {
+            this.search_text = 'tag:'+tag_name
         }
     },
     watch : {

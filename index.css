@@ -17,9 +17,20 @@ body {
     flex-direction: row;
 }
 
+
+
+
+/* entry list */
+
 #div_entries {
     overflow-y: auto;
     max-height:97vh;
+    padding:6px;
+}
+
+#input_search {
+    width:100%;
+    margin:4px;
 }
 
 #ul_entries {
@@ -59,6 +70,8 @@ body {
     background-color: #333;
 }
 
+
+/* buttons on the top-right side */
 .top_bts {
     color: #333;
     position:absolute;
@@ -90,6 +103,8 @@ body {
     color:goldenrod;
 }
 
+/* module stuff */
+
 #div_detail > div {
     margin: 12px 0;
 }
@@ -108,9 +123,7 @@ h2 {
     padding:1%;
 }
 
-#input_search {
-    margin: 2px;
-}
+
 input {
     color:white;
     background-color:black;
@@ -136,7 +149,33 @@ textarea:focus {
     outline:none;
 }
 
+#div_modules {
+    display:flex;
+    flex-direction: column;
+}
 
+
+#div_tags {
+    display:flex;
+    flex-direction: row;
+}
+
+.bt_tag {
+    border: 0.5px solid lightgrey;
+    margin: 4px;
+    padding:4px;
+    cursor:default;
+    color:lightgrey;
+    font-size:10px;
+}
+.bt_tag:hover {
+    color:goldenrod;
+    border: 0.5px solid goldenrod;
+}
+
+
+
+/* split pane */
 
 .gutter {
     cursor: col-resize;
@@ -162,7 +201,7 @@ textarea:focus {
 }
 
 
-
+/* alert/confirm dialogs */
 
 #div_alert_background {
     position:absolute;

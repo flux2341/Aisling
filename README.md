@@ -16,14 +16,18 @@ Aisling is a personal vocabulary manager made with [Electron](https://electronjs
     - selecting a tag filters the search results by the tag
 
 ## Todo
-
+- put focus on the word input field after selecting 'edit' and 'new'
 - module system
+    - additional modules
+        - synonyms, antonyms
+        - 'part of speech' - proper noun
+        - links to wiktionary, etymonline, dictionary.com, thesauris.com, websters
+            - edit mode - allow adding, moving, removing buttons
+        - make api call to wiktionary, etymonline.com, etc, cache + show result, periodically update
+            - refresh button
     - ability to load from an external folder
     - buttons for searching certain sites
         - in edit mode, allow adding, moving, removing buttons
-    - online resources
-        - invoke api - wiktionary, etymonline, dictionary.com, thesaurus.com, websters
-        - cache result, add refresh button
     - in edit mode - move modules up/down, add a new module, remove a module
     - maybe the ability to have per-entry arrangements and a global default
         - allow selecting multiple entries for doing mass edits

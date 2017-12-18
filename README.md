@@ -8,34 +8,17 @@ Aisling is a personal vocabulary manager made with [Electron](https://electronjs
 - entries are stored as json files
 - half-decent alert/confirm dialog
 - settings for 'storage location' and 'last entry open', file dialog for opening storage location
-- loads previous state on startup
+- loads previous state on startup (search text, selected word)
 - search entries
-    - prefix with 'word:', 'definition:', or 'tag:' to search parts
+    - prefix with 'word:', 'definition:', or 'tag:' to search specific parts
+- tagging
+    - for entering tags, split on any non-word character
+    - selecting a tag filters the search results by the tag
 
 ## Todo
 
-- a way for modules to add data to an entry
-    - load all modules, only show some
-    - otherwise I have to change the null entry definition in code each time I add a module
-    - need to add the field to new modules
-    - don't bother removing attributes when a module is removed from the view
-    - put a javascript function in each of the modules, put each of the modules in its own .vue file
-
-- module manipulating
-    - add module button
-    - on each module - up/down, remove, change type
-    - save / cancel changes
-    - update the main page automatically as a preview
-    - plugin interface, load modules from an external source
-- settings page
-- add search box on top of word list
-    - entering text in the search box filters the displayed words
-    - allow searching particular parts of the entry (e.g. word:this definition:that)
-- add tags, allow writing tag:colors in the search input
-- have items to open wiktionary.org, etymonline.com, etc
-    - invoke their api to make it more integrated
-- modular system
-    - word, definition, tags
+- module system
+    - ability to load from an external folder
     - buttons for searching certain sites
         - in edit mode, allow adding, moving, removing buttons
     - online resources
@@ -45,6 +28,16 @@ Aisling is a personal vocabulary manager made with [Electron](https://electronjs
     - maybe the ability to have per-entry arrangements and a global default
         - allow selecting multiple entries for doing mass edits
         - link the arrangement with the data, just interpret the entry as-is
+    - a way for modules to add data to an entry, put a method in each module?
+        - otherwise I have to change the null entry definition in code each time I add a module
+        - don't bother removing attributes when a module is removed from the view
+    - page for editing modules
+        - add module button
+        - on each module - move up, move down, remove, change type
+        - save / cancel changes
+        - update the main page automatically as a preview
+        - plugin interface, load modules from an external source
+- settings page
 - asynchronous searching
 
 
@@ -52,7 +45,6 @@ Aisling is a personal vocabulary manager made with [Electron](https://electronjs
 
 
 have top-right buttons use position:relative so the input_word field doesn't overlap with them?
-    or give them dark backgrounds?
 
 
 menu options

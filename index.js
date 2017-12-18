@@ -48,8 +48,8 @@ var app = new Vue({
         'module-tags': {
             props: ['mode', 'entry', 'search_text'],
             template: String.raw`<div id="div_tags">
-                                    <input type="text" v-if="mode === 'edit'" v-model="entry.tags"/>
-                                    <div class="bt_tag" v-for="tag in entry.tags.split(',')" v-if="mode === 'view'" v-on:click="select_tag(tag)">
+                                    <input id="input_tags" type="text" v-if="mode === 'edit'" v-model="entry.tags"/>
+                                    <div class="bt_tag" v-for="tag in entry.tags.split(/[^\w]/).filter(Boolean)" v-if="mode === 'view'" v-on:click="select_tag(tag)">
                                         {{tag}}
                                     </div>
                                 </div>`,

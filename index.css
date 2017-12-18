@@ -149,15 +149,12 @@ textarea:focus {
     outline:none;
 }
 
-#div_modules {
-    display:flex;
-    flex-direction: column;
-}
-
-
 #div_tags {
     display:flex;
     flex-direction: row;
+}
+#input_tags {
+    width:100%;
 }
 
 .bt_tag {

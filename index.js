@@ -1,8 +1,10 @@
-const storage = require('electron-json-storage');
-const settings = require('electron-settings');
-const {dialog} = require('electron').remote;
-const Vue = require('vue/dist/vue.js');
-var Split = require('split.js');
+const storage = require('electron-json-storage')
+const settings = require('electron-settings')
+const {dialog} = require('electron').remote
+const Vue = require('vue/dist/vue.js')
+var Split = require('split.js')
+let main_modules = require('./modules.js')
+console.log(main_modules);
 
 var app = new Vue({
     el: '#app',
@@ -30,36 +32,7 @@ var app = new Vue({
         // the value of the search field at the top of the entry list
         search_text: ''
     },
-    components: {
-        'module-word': {
-            props: ['mode', 'entry'],
-            template: String.raw`<div>
-                                    <input v-show="mode === 'edit'" v-model="entry.word" id="input_word">
-                                    <h2 v-show="mode === 'view'">{{ entry.word }}</h2>
-                                </div>`
-        },
-        'module-definition': {
-            props: ['mode', 'entry'],
-            template: String.raw`<div>
-                                    <textarea v-show="mode === 'edit'" v-model="entry.definition" class="scrollable"></textarea>
-                                    <span v-show="mode === 'view'" id="span_definition">{{ entry.definition }}</span>
-                                </div>`
-        },
-        'module-tags': {
-            props: ['mode', 'entry', 'search_text'],
-            template: String.raw`<div id="div_tags">
-                                    <input id="input_tags" type="text" v-show="mode === 'edit'" v-model="entry.tags"/>
-                                    <div class="bt_tag" v-for="tag in entry.tags.split(/[^\w]/).filter(Boolean)" v-show="mode === 'view'" v-on:click="select_tag(tag)">
-                                        {{tag}}
-                                    </div>
-                                </div>`,
-            methods: {
-                select_tag(tag_name) {
-                    this.$emit('update:search_text', 'tag:'+tag_name);
-                }
-            }
-        }
-    },
+    components: main_modules,
     methods: {
 
         load_from_storage: function() {
@@ -244,6 +217,15 @@ var app = new Vue({
         },
         select_tag: function(tag_name) {
             this.search_text = 'tag:'+tag_name
+        },
+        get_module_title(module_name) {
+            if (this.$refs) {
+                module = this.$refs[module_name]
+                if (module) {
+                    return module[0].name
+                }
+            }
+            
         }
     },
     watch : {
@@ -266,7 +248,6 @@ var app = new Vue({
 
         this.search_text = settings.get('last_search_text', '');
         
-
     }
 });
 

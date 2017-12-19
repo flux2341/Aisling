@@ -34,22 +34,22 @@ var app = new Vue({
         'module-word': {
             props: ['mode', 'entry'],
             template: String.raw`<div>
-                                    <input v-if="mode === 'edit'" v-model="entry.word" id="input_word">
-                                    <h2 v-if="mode === 'view'">{{ entry.word }}</h2>
+                                    <input v-show="mode === 'edit'" v-model="entry.word" id="input_word">
+                                    <h2 v-show="mode === 'view'">{{ entry.word }}</h2>
                                 </div>`
         },
         'module-definition': {
             props: ['mode', 'entry'],
             template: String.raw`<div>
-                                    <textarea v-if="mode === 'edit'" v-model="entry.definition" class="scrollable"></textarea>
-                                    <span v-else id="span_definition">{{ entry.definition }}</span>
+                                    <textarea v-show="mode === 'edit'" v-model="entry.definition" class="scrollable"></textarea>
+                                    <span v-show="mode === 'view'" id="span_definition">{{ entry.definition }}</span>
                                 </div>`
         },
         'module-tags': {
             props: ['mode', 'entry', 'search_text'],
             template: String.raw`<div id="div_tags">
-                                    <input id="input_tags" type="text" v-if="mode === 'edit'" v-model="entry.tags"/>
-                                    <div class="bt_tag" v-for="tag in entry.tags.split(/[^\w]/).filter(Boolean)" v-if="mode === 'view'" v-on:click="select_tag(tag)">
+                                    <input id="input_tags" type="text" v-show="mode === 'edit'" v-model="entry.tags"/>
+                                    <div class="bt_tag" v-for="tag in entry.tags.split(/[^\w]/).filter(Boolean)" v-show="mode === 'view'" v-on:click="select_tag(tag)">
                                         {{tag}}
                                     </div>
                                 </div>`,
@@ -91,32 +91,40 @@ var app = new Vue({
 
         view_entry: function(entry) {
             if (this.mode === 'edit') {
-                let app = this;
+                let app = this
                 show_alert({
                     message: 'cancel edit?',
                     buttons: ['yes', 'no'],
                     callback: function(response) {
                         if (response === 'yes') {
-                            this.mode = 'view';
+                            this.mode = 'view'
                         } else {
-                            app.current_entry = entry;
+                            app.current_entry = entry
                         }
                     }
                 });
             } else {
-                this.current_entry = entry;
+                this.current_entry = entry
             }
         },
         new_entry: function() {
-            this.current_entry = this.copy_entry(this.null_entry);
-            this.mode = 'edit';
+            this.current_entry = this.copy_entry(this.null_entry)
+            this.mode = 'edit'
+            
+            setTimeout(function() {
+                let input_word = document.querySelector('#input_word')
+                if (input_word) { // maybe the module wasn't added
+                    input_word.focus()
+                }
+            }, 50)
+
         },
         edit_entry: function() {
-            this.mode = 'edit';
+            this.mode = 'edit'
         },
         cancel_edit: function() {
             this.temp_entry = this.copy_entry(this.current_entry);
-            this.mode = 'view';
+            this.mode = 'view'
         },
         save_entry: function() {
 

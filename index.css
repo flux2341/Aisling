@@ -89,30 +89,20 @@ body {
 /* buttons on the top-right side */
 .top_bts {
     color: #333;
-    position:absolute;
-    left:100%;
-    top:0px;
-    transform: translateX(-120%);
-    cursor:default;
-    padding:4px;
+    float:right;
+    margin-right:50px;
+    clear:both;
+    padding:6px;
+    white-space: nowrap;
 }
 
-#div_view_bts {
-    width: 100px;
-}
-
-#div_edit_bts {
-    width:160px;
-}
-
-
-.top_bts {
-    background-color:rgba(0, 0, 0, 0.8);
-}
 
 .top_bts > div {
     margin:4px;
+    padding:2px 6px;
     display:inline;
+    background-color:black;
+    cursor:default;
 }
 .top_bts > div:hover {
     color:goldenrod;

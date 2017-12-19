@@ -14,12 +14,16 @@ Aisling is a personal vocabulary manager made with [Electron](https://electronjs
 - tagging
     - for entering tags, split on any non-word character
     - selecting a tag filters the search results by the tag
+- put focus on the word input field after selecting 'edit' and 'new'
 
 ## Todo
-- put focus on the word input field after selecting 'edit' and 'new'
+
 - 'x' button in search input to clear the search text
 - mass upload from txt, csv
-
+- have the input fields show up as the same size and at the same place as the view elements
+- menu options
+    - show/hide module titles (save as a setting)
+    - export to txt (tabbed in), html, csv
 - module system
     - additional modules
         - synonyms, antonyms, 'related'

@@ -16,9 +16,9 @@
                     </div>
                 </div>
             </div>
-            <div id="div_entries" class="split scrollable">
+            <div id="div_entries" class="split" style="overflow-y:auto">
                 <input type="text" id="input_search" v-model="search_text"/>
-                <ul id="ul_entries">
+                <ul id="ul_entries" class="scrollable">
                     <li v-for="entry in filtered_entries()" v-bind:class="{ selected: entry === current_entry }" v-on:click="view_entry(entry)">
                         {{entry.word}}
                     </li>

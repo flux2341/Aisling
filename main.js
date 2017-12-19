@@ -12,7 +12,8 @@ function createWindow () {
   // Create the browser window.
   win = new BrowserWindow({width: 800, height: 600})
 
-  win.setMenu(null);
+  //win.setMenu(null);
+  win.setAutoHideMenuBar(true);
 
   // and load the index.html of the app.
   win.loadURL(url.format({

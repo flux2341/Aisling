@@ -23,9 +23,24 @@ body {
 /* entry list */
 
 #div_entries {
-    overflow-y: auto;
     max-height:97vh;
     padding:6px;
+    display:flex;
+    flex-direction:column;
+    
+}
+
+#ul_entries {
+    overflow-y: auto;
+    margin:4px;
+    border-top: 1px solid #111;
+    border-bottom: 1px solid #111;
+    direction:rtl;
+    margin-left:4px;
+}
+#ul_entries > li {
+    direction:ltr;
+    text-align:left;
 }
 
 #input_search {

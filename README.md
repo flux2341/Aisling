@@ -17,15 +17,20 @@ Aisling is a personal vocabulary manager made with [Electron](https://electronjs
 
 ## Todo
 - put focus on the word input field after selecting 'edit' and 'new'
+- 'x' button in search input to clear the search text
+- mass upload from txt, csv
+
 - module system
     - additional modules
-        - synonyms, antonyms
+        - synonyms, antonyms, 'related'
         - # stars / 5
         - 'part of speech' - proper noun
         - links to wiktionary, etymonline, dictionary.com, thesauris.com, websters
             - edit mode - allow adding, moving, removing buttons
         - make api call to wiktionary, etymonline.com, etc, cache + show result, periodically update
             - refresh button
+    - module labels
+        - needed for synonyms and antonyms
     - ability to load from an external folder
     - buttons for searching certain sites
         - in edit mode, allow adding, moving, removing buttons
@@ -36,15 +41,18 @@ Aisling is a personal vocabulary manager made with [Electron](https://electronjs
     - a way for modules to add data to an entry, put a method in each module?
         - otherwise I have to change the null entry definition in code each time I add a module
         - don't bother removing attributes when a module is removed from the view
-    - page for editing modules
+    - page for editing which modules are shown
         - add module button
         - on each module - move up, move down, remove, change type
         - save / cancel changes
         - update the main page automatically as a preview
-        - plugin interface, load modules from an external source
+        - load modules from an external source
 - settings page
 - asynchronous searching
-
+- grand plans
+    - generalize into a note taking / information organizing app, add dates to track events
+    - calendar view, 
+    - put on the web with paid accounts, no advertising
 
 ## Random Junk
 

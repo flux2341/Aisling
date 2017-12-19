@@ -42,7 +42,7 @@ var app = new Vue({
             props: ['mode', 'entry'],
             template: String.raw`<div>
                                     <textarea v-if="mode === 'edit'" v-model="entry.definition" class="scrollable"></textarea>
-                                    <span v-else>{{ entry.definition }}</span>
+                                    <span v-else id="span_definition">{{ entry.definition }}</span>
                                 </div>`
         },
         'module-tags': {

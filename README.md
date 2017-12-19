@@ -20,6 +20,7 @@ Aisling is a personal vocabulary manager made with [Electron](https://electronjs
 - module system
     - additional modules
         - synonyms, antonyms
+        - # stars / 5
         - 'part of speech' - proper noun
         - links to wiktionary, etymonline, dictionary.com, thesauris.com, websters
             - edit mode - allow adding, moving, removing buttons

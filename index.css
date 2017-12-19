@@ -135,6 +135,11 @@ input:focus {
     outline:none;
 }
 
+
+#span_definition {
+    white-space: pre-wrap;
+}
+
 textarea {
     color:white;
     background-color:black;

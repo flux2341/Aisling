@@ -11,6 +11,11 @@ body {
     font-family: 'Open Sans';
 }
 
+::selection {
+    background: goldenrod;
+    color:black;
+}
+
 #app {
     width:100%;
     display: flex;

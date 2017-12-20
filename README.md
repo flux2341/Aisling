@@ -17,6 +17,8 @@ Aisling is a personal vocabulary manager made with [Electron](https://electronjs
 - put focus on the word input field after selecting 'edit' and 'new'
 
 ## Todo
+- find a way to build modules, let them have persistent data
+    - save and restore any variables they declare (besides those over-written by the entry)
 - 'x' button in search input to clear the search text
 - mass upload from txt, csv
 - have the input fields show up as the same size and at the same place as the view elements

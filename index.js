@@ -4,7 +4,6 @@ const {dialog} = require('electron').remote
 const Vue = require('vue/dist/vue.js')
 var Split = require('split.js')
 let main_modules = require('./modules.js')
-console.log(main_modules);
 
 var app = new Vue({
     el: '#app',
@@ -15,7 +14,7 @@ var app = new Vue({
         // - when the application starts and there isn't a last_selected_word set
         // - when a new entry is created
         // - when an entry is deleted and the detail view needs to be cleared
-        null_entry: {word:'', definition:'', tags:''},
+        null_entry: {},
 
         // the selected entry
         current_entry: null,
@@ -233,7 +232,20 @@ var app = new Vue({
             this.temp_entry = this.copy_entry(this.current_entry);
         }
     },
+    beforeCreate() {
+
+    },
     created: function () {
+
+        let components = this.$options.components
+        for (let i=0; i<this.modules.length; ++i) {
+            let default_values = components[this.modules[i]].data().default_values
+            for (default_field in default_values) {
+                this.null_entry[default_field] = default_values[default_field]
+            }
+        }
+        console.log(this.null_entry)
+
 
         //settings.deleteAll();
         if (!settings.has('storage_path')) {
@@ -247,6 +259,8 @@ var app = new Vue({
 
 
         this.search_text = settings.get('last_search_text', '');
+        
+
         
     }
 });

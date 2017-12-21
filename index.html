@@ -36,7 +36,7 @@
                 </div>
                 <div v-for="(module, index) in modules" style="border-top: 1px solid dimgrey;margin:30px 0px;">
                     <span style="font-size:10px;color:dimgrey;transform:translate(0px,-15px);background:black;display:inline-block;padding:4px;">{{get_module_title('module'+index)}}</span>
-                    <div :is="module" :entry="temp_entry" :mode="mode" :search_text.sync="search_text" v-bind:ref="'module'+index"></div>
+                    <div :is="module" :entry="temp_entry" :mode="mode" :search_text.sync="search_text" v-bind:ref="'module'+index" @select_entry="select_entry"></div>
                 </div>
             </div>
         </div>

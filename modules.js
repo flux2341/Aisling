@@ -49,16 +49,16 @@ module.exports = {
     },
     methods: {
       select_tag(tag_name) {
-          this.$emit('update:search_text', 'tag:'+tag_name);
+        this.$emit('update:search_text', 'tag:'+tag_name);
       }
     }
   },
   'module-synonyms': {
     props: ['mode', 'entry'],
-    template: String.raw`<div>
-                            <input type="text" v-show="mode === 'edit'" v-model="entry.synonyms"/>
-                            <div class="bt_tag" v-for="synonym in entry.synonyms.split(/[^\w]/).filter(Boolean)" v-show="mode === 'view'">
-                                {{tag}}
+    template: String.raw`<div id="div_synonyms">
+                            <input id="input_synonyms" type="text" v-show="mode === 'edit'" v-model="entry.synonyms"/>
+                            <div class="bt_tag" v-for="synonym in entry.synonyms.split(/[^\w]/).filter(Boolean)" v-show="mode === 'view'" v-on:click="select_entry(synonym)">
+                                {{ synonym }}
                             </div>
                         </div>`,
     data() {
@@ -67,6 +67,11 @@ module.exports = {
         default_values: {
           synonyms: ''
         }
+      }
+    },
+    methods: {
+      select_entry(word) {
+        this.$emit('select_entry', word)
       }
     }
   }

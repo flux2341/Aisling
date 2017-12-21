@@ -5,26 +5,35 @@ Aisling is a personal vocabulary manager made with [Electron](https://electronjs
 
 - view list of entries, view entry detail
 - create entry, edit entry, delete entry
-- entries are stored as json files
+- entries are stored as json files in a folder
 - half-decent alert/confirm dialog
 - settings for 'storage location' and 'last entry open', file dialog for opening storage location
 - loads previous state on startup (search text, selected word)
 - search entries
-    - prefix with 'word:', 'definition:', or 'tag:' to search specific parts
-- tagging
-    - for entering tags, split on any non-word character
-    - selecting a tag filters the search results by the tag
+    - prefix with 'word:', 'definition:', 'tag:', or 'synonym' to search specific parts
+- modules
+    - word
+    - definition
+    - tags
+        - selecting a tag filters the entry list
+    - synonyms
+        - selecting a synonym opens that entry
+- dynamically add entry attributes for new modules
+- tags and synonyms are split on any non-word character
 - put focus on the word input field after selecting 'edit' and 'new'
 
 ## Todo
+- menu items
+    - open storage location
+    - show/hide module labels (save as a setting)
+    - export to html, csv, txt
+    - import from csv, txt
+    - hide menu (show with alt)
+- allow users to press down/up arrow to move through the entries
 - find a way to build modules, let them have persistent data
     - save and restore any variables they declare (besides those over-written by the entry)
 - 'x' button in search input to clear the search text
-- mass upload from txt, csv
 - have the input fields show up as the same size and at the same place as the view elements
-- menu options
-    - show/hide module titles (save as a setting)
-    - export to txt (tabbed in), html, csv
 - module system
     - additional modules
         - synonyms, antonyms, 'related'
@@ -34,18 +43,13 @@ Aisling is a personal vocabulary manager made with [Electron](https://electronjs
             - edit mode - allow adding, moving, removing buttons
         - make api call to wiktionary, etymonline.com, etc, cache + show result, periodically update
             - refresh button
-    - module labels
-        - needed for synonyms and antonyms
+    - have the modules control how search results are filtered, let them supply the prefix
     - ability to load from an external folder
     - buttons for searching certain sites
         - in edit mode, allow adding, moving, removing buttons
-    - in edit mode - move modules up/down, add a new module, remove a module
     - maybe the ability to have per-entry arrangements and a global default
         - allow selecting multiple entries for doing mass edits
         - link the arrangement with the data, just interpret the entry as-is
-    - a way for modules to add data to an entry, put a method in each module?
-        - otherwise I have to change the null entry definition in code each time I add a module
-        - don't bother removing attributes when a module is removed from the view
     - page for editing which modules are shown
         - add module button
         - on each module - move up, move down, remove, change type
@@ -56,7 +60,7 @@ Aisling is a personal vocabulary manager made with [Electron](https://electronjs
 - asynchronous searching
 - grand plans
     - generalize into a note taking / information organizing app, add dates to track events
-    - calendar view, 
+    - calendar view, etc
     - put on the web with paid accounts, no advertising
 
 ## Random Junk

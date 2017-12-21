@@ -172,6 +172,16 @@ textarea:focus {
     width:100%;
 }
 
+#div_synonyms {
+    display:flex;
+    flex-direction: row;
+}
+#input_synonyms {
+    width:100%;
+}
+
+
+
 .bt_tag {
     border: 0.5px solid lightgrey;
     margin: 4px;

@@ -26,7 +26,7 @@ var app = new Vue({
         mode: 'view',
 
         // modules to be shown in the detail view
-        modules: ['module-word', 'module-definition', 'module-tags'],
+        modules: ['module-word', 'module-definition', 'module-tags', 'module-synonyms'],
 
         // the value of the search field at the top of the entry list
         search_text: ''
@@ -42,9 +42,23 @@ var app = new Vue({
                 if (error) {
                     console.log(error);
                 } else {
+
+                    // add the entries to the app's entries
+                    // electron-storage loads the entries as a single object
+                    // with each entry as an attribute of that object
+                    // rather than as an array
                     app.entries = [];
                     for (name in entries) {
-                        app.entries.push(entries[name]);
+                        let entry = entries[name]
+
+                        // copy attributes from the null_entry
+                        // to ensure that every module has the attributes it's expecting
+                        for (field in app.null_entry) {
+                            if (!entry.hasOwnProperty(field)) {
+                                entry[field] = app.null_entry[field]
+                            }
+                        }
+                        app.entries.push(entry)
                     }
                     
                     // load the last selected word
@@ -217,6 +231,14 @@ var app = new Vue({
         select_tag: function(tag_name) {
             this.search_text = 'tag:'+tag_name
         },
+        select_entry: function(word) {
+            let entry = this.entries.find((entry) => {
+                return entry.word === word;
+            });
+            if (entry) {
+                this.current_entry = entry;
+            }
+        },
         get_module_title(module_name) {
             if (this.$refs) {
                 module = this.$refs[module_name]
@@ -231,9 +253,6 @@ var app = new Vue({
         current_entry: function(val) {
             this.temp_entry = this.copy_entry(this.current_entry);
         }
-    },
-    beforeCreate() {
-
     },
     created: function () {
 
@@ -256,12 +275,7 @@ var app = new Vue({
         this.temp_entry = this.copy_entry(this.null_entry);
         this.load_from_storage();
 
-
-
         this.search_text = settings.get('last_search_text', '');
-        
-
-        
     }
 });
 
